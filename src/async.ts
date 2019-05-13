@@ -2,11 +2,11 @@ import { IKeyValueStoreAsync } from "@keeveestore/keeveestore";
 import Redis from "ioredis";
 
 export class StoreAsync<K, T> implements IKeyValueStoreAsync<K, T> {
-	private readonly store;
-
-	public constructor() {
-		this.store = new Redis();
+	public static async new<K, T>(): Promise<StoreAsync<K, T>> {
+		return new StoreAsync<K, T>(new Redis());
 	}
+
+	private constructor(private readonly store) {}
 
 	public async all(): Promise<Array<[K, T]>> {
 		const keys: K[] = await this.keys();
