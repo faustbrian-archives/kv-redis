@@ -6,7 +6,7 @@
 [![Node Engine](https://badgen.now.sh/npm/node/@keeveestore/redis)](https://www.npmjs.com/package/@keeveestore/redis)
 [![Build Status](https://badgen.now.sh/circleci/github/keeveestore/redis)](https://circleci.com/gh/keeveestore/redis)
 [![Codecov](https://badgen.now.sh/codecov/c/github/keeveestore/redis)](https://codecov.io/gh/keeveestore/redis)
-[![License: MPL-2.0](https://badgen.now.sh/badge/license/MPL-2.0/green)](https://mozilla.org/MPL/2.0/)
+[![License: MPL-2.0](https://badgen.now.sh/badge/license/MPL-2.0/green)](https://mozilla.org/MPL/2.0/) [![Greenkeeper badge](https://badges.greenkeeper.io/keeveestore/redis.svg)](https://greenkeeper.io/)
 
 ## Installation
 
