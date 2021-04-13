@@ -12,7 +12,9 @@ export class StoreAsync<K, T> implements IKeyValueStoreAsync<K, T> {
 		const keys: K[] = await this.keys();
 
 		// @ts-ignore
-		return Promise.all(keys.map(async key => [key, await this.store.get(key)]));
+		return Promise.all(
+			keys.map(async (key) => [key, await this.store.get(key)])
+		);
 	}
 
 	public async keys(): Promise<K[]> {
@@ -56,7 +58,9 @@ export class StoreAsync<K, T> implements IKeyValueStoreAsync<K, T> {
 	}
 
 	public async putMany(values: Array<[K, T]>): Promise<boolean[]> {
-		return Promise.all(values.map(async (value: [K, T]) => this.put(value[0], value[1])));
+		return Promise.all(
+			values.map(async (value: [K, T]) => this.put(value[0], value[1]))
+		);
 	}
 
 	public async has(key: K): Promise<boolean> {
