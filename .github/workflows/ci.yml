@@ -1,61 +1,70 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - "master"
-      - "develop"
-  pull_request:
-    types: [ready_for_review, synchronize, opened]
+    push:
+        branches:
+            - "master"
+            - "develop"
+    pull_request:
+        types: [ready_for_review, synchronize, opened]
 
 jobs:
-  conflicts:
-    runs-on: ubuntu-latest
+    conflicts:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.head_ref }}
 
-      - name: Merge Conflict finder
-        uses: olivernybroe/action-conflict-finder@v1.1
+            - name: Merge Conflict finder
+              uses: olivernybroe/action-conflict-finder@v1.1
 
-  format:
-    needs: [conflicts]
+    format:
+        needs: [conflicts]
 
-    runs-on: ubuntu-latest
+        runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
-          token: ${{ secrets.GH_TOKEN }}
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.head_ref }}
+                  token: ${{ secrets.GH_TOKEN }}
 
-      - name: Install dependencies
-        run: npm ci
+            - name: Install dependencies
+              run: npm ci
 
-      - name: Run Format
-        run: npm run format
+            - name: Run Format
+              run: npm run format
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "style: resolve style guide violations"
-          branch: ${{ github.head_ref }}
+            - uses: stefanzweifel/git-auto-commit-action@v4
+              with:
+                  commit_message: "style: resolve style guide violations"
+                  branch: ${{ github.head_ref }}
 
-  unit:
-    needs: [format]
+    unit:
+        needs: [format]
 
-    runs-on: ubuntu-latest
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
+        services:
+            redis:
+                image: redis
+                options: >-
+                    --health-cmd "redis-cli ping"
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
 
-      - name: Install dependencies
-        run: npm ci
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.head_ref }}
 
-      - name: Run Tests
-        run: npm run test -- --pass-with-no-tests
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Run Tests
+              run: npm run test -- --pass-with-no-tests
