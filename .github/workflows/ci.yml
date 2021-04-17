@@ -49,13 +49,16 @@ jobs:
         runs-on: ubuntu-latest
 
         services:
-            redis:
-                image: redis
-                options: >-
-                    --health-cmd "redis-cli ping"
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 5
+            mysql:
+                image: mariadb:latest
+                env:
+                    MYSQL_DATABASE: kvmysql
+                    MYSQL_PASSWORD: kvmysql
+                    MYSQL_USER: kvmysql
+                    MYSQL_ROOT_PASSWORD: kvmysql
+                ports:
+                    - 3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
         steps:
             - name: Checkout code
@@ -67,4 +70,10 @@ jobs:
               run: npm ci
 
             - name: Run Tests
-              run: npm run test -- --pass-with-no-tests
+              run: npm run test -- --pass-with-no-tests --force-exit
+              env:
+                  MYSQL_HOST: localhost
+                  MYSQL_PORT: 49153
+                  MYSQL_DATABASE: kvmysql
+                  MYSQL_PASSWORD: kvmysql
+                  MYSQL_USER: kvmysql
