@@ -26,13 +26,13 @@
 		"dist"
 	],
 	"dependencies": {
-		"@konceiver/kv": "^1.0.0",
-		"ioredis": "^4.19.4"
+		"@konceiver/kv": "^1.0.1",
+		"ioredis": "^4.26.0"
 	},
 	"devDependencies": {
 		"@konceiver/kv-test-suite": "^1.0.0",
-		"@konceiver/tease": "^2.0.0",
-		"@types/ioredis": "^4.17.8"
+		"@konceiver/tease": "^2.0.1",
+		"@types/ioredis": "^4.22.3"
 	},
 	"types": "dist/index"
 }
