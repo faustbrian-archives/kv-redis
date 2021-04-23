@@ -32,7 +32,7 @@
 	"devDependencies": {
 		"@konceiver/kv-test-suite": "^1.0.0",
 		"@konceiver/tease": "^2.0.1",
-		"@types/ioredis": "^4.22.3"
+		"@types/ioredis": "^4.26.0"
 	},
 	"types": "dist/index"
 }
