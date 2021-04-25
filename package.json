@@ -27,7 +27,7 @@
 	],
 	"dependencies": {
 		"@konceiver/kv": "^1.0.1",
-		"ioredis": "^4.26.0"
+		"ioredis": "^4.27.1"
 	},
 	"devDependencies": {
 		"@konceiver/kv-test-suite": "^1.0.0",
